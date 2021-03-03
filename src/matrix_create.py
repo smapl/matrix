@@ -1,6 +1,6 @@
 import pandas as pd
 from loguru import logger
-
+from tqdm import trange
 from random import randint
 
 
@@ -15,8 +15,8 @@ def load_data(matrix, filename):
 def matrix_build(size: int, step: int, filename: str):
     matrix = []
 
-    for i in range(size):
-        logger.info(i)
+    for i in trange(size):
+        # logger.info(i)
         row = [randint(0, 9) for _ in range(size)]
         matrix.append(row)
 

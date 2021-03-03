@@ -1,5 +1,6 @@
 import pandas as pd
 from loguru import logger
+from tqdm import tqdm
 
 
 def divide_to_batches(data: list, count):
@@ -14,7 +15,6 @@ def transp_matrix(matrix):
     transp = []
 
     for col in matrix:
-        logger.info(col)
         column = matrix[col].to_list()
         transp.append(column)
 
@@ -33,7 +33,8 @@ if __name__ == "__main__":
     cols = [_ for _ in range(size)]
 
     batches = divide_to_batches(cols, step)
-    for batch in batches:
+
+    for batch in tqdm(batches):
         matrix = pd.read_csv(
             filename_source, delimiter="\t", header=None, index_col=None, usecols=batch
         )
