@@ -4,7 +4,15 @@ from loguru import logger
 from random import randint
 
 
-def matrix_build(size: int, filename: str):
+def load_data(matrix, filename):
+
+    matrix_frame = pd.DataFrame(matrix)
+    matrix_frame.to_csv(filename, mode="a", index=False, header=False, sep="\t")
+
+    return
+
+
+def matrix_build(size: int, step: int, filename: str):
     matrix = []
 
     for i in range(size):
@@ -12,23 +20,19 @@ def matrix_build(size: int, filename: str):
         row = [randint(0, 9) for _ in range(size)]
         matrix.append(row)
 
-        if len(matrix) >= 100:
-            matrix_frame = pd.DataFrame(matrix)
-            matrix_frame.to_csv(filename, mode="a", index=False, header=False, sep="\t")
+        if len(matrix) >= step:
+            load_data(matrix, filename)
             matrix = []
-            log_message = (
-                f"column = {i}\nlen matrix after writing to file = {len(matrix)}"
-            )
-            logger.info(log_message)
 
     return matrix
 
 
 if __name__ == "__main__":
-    filename = "matrix.csv"
-    matrix = matrix_build(530, filename)
+    filename = "matrix_test.csv"
+    size = 10000
+    step = 100
+
+    matrix = matrix_build(size, step, filename)
 
     if len(matrix) != 0:
-
-        matrix_frame = pd.DataFrame(matrix)
-        matrix_frame.to_csv(filename, mode="a", index=False, header=False, sep="\t")
+        load_data(matrix, filename)
