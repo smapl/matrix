@@ -1,26 +1,34 @@
 import pandas as pd
+from loguru import logger
 
 from random import randint
 
 
-def random_row(size):
-    random_list = [randint(0, 9) for _ in range(size)]
-
-    return random_list
-
-
-def matrix_build(size=5):
+def matrix_build(size: int, filename: str):
     matrix = []
 
-    for _ in range(size):
-
-        row = random_row(size)
+    for i in range(size):
+        logger.info(i)
+        row = [randint(0, 9) for _ in range(size)]
         matrix.append(row)
+
+        if len(matrix) >= 100:
+            matrix_frame = pd.DataFrame(matrix)
+            matrix_frame.to_csv(filename, mode="a", index=False, header=False, sep="\t")
+            matrix = []
+            log_message = (
+                f"column = {i}\nlen matrix after writing to file = {len(matrix)}"
+            )
+            logger.info(log_message)
 
     return matrix
 
 
 if __name__ == "__main__":
-    matrix = matrix_build()
-    matrix_frame = pd.DataFrame(matrix)
-    matrix_frame.to_csv("matrix.csv", index=False, header=False, sep="\t")
+    filename = "matrix.csv"
+    matrix = matrix_build(530, filename)
+
+    if len(matrix) != 0:
+
+        matrix_frame = pd.DataFrame(matrix)
+        matrix_frame.to_csv(filename, mode="a", index=False, header=False, sep="\t")
