@@ -6,7 +6,7 @@ from random import randint
 def random_row(size):
     random_list = []
     for _ in range(size):
-        random_list.append(randint(-100, 100))
+        random_list.append(randint(0, 9))
 
     return random_list
 
@@ -26,4 +26,4 @@ def matrix_build(size=5):
 if __name__ == "__main__":
     matrix = matrix_build()
     matrix_frame = pd.DataFrame(matrix)
-    matrix_frame.to_csv("matrix.csv", index=False, header=False)
+    matrix_frame.to_csv("matrix.csv", index=False, header=False, sep="\t")
