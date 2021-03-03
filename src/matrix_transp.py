@@ -22,7 +22,7 @@ def transp_matrix(matrix):
 
 
 if __name__ == "__main__":
-    filename_source = "/home/smapl/projects/matrix/src/matrix_test.csv"
+    filename_source = "matrix.csv"
     filename_transp = "matrix_transp.csv"
 
     step = 100
