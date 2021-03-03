@@ -4,14 +4,11 @@ from random import randint
 
 
 def random_row(size):
-    random_list = []
-    for _ in range(size):
-        random_list.append(randint(0, 9))
+    random_list = [randint(0, 9) for _ in range(size)]
 
     return random_list
 
 
-# TODO: make with multiprocessing or async
 def matrix_build(size=5):
     matrix = []
 
