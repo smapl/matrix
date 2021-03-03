@@ -28,7 +28,7 @@ def matrix_build(size: int, step: int, filename: str):
 
 
 if __name__ == "__main__":
-    filename = "matrix_test.csv"
+    filename = "matrix.csv"
     size = 10000
     step = 100
 
